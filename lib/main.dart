@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/foundation.dart";
+import "package:google_sign_in/google_sign_in.dart";
 import "firebase_options.dart";
 import "screens/home_screen.dart";
 import "screens/login_screen.dart";
@@ -17,6 +18,16 @@ void main() async {
     );
     firebaseInitialized = true;
     print('Firebase 초기화 성공');
+    
+    // iOS에서 Google Sign In 초기화
+    if (!kIsWeb) {
+      try {
+        await GoogleSignIn.instance.initialize();
+        print('Google Sign In 초기화 성공');
+      } catch (e) {
+        print('Google Sign In 초기화 실패: $e');
+      }
+    }
   } catch (e) {
     print('Firebase 초기화 실패: $e');
     print('더미 모드로 실행됩니다.');
