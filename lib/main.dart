@@ -51,8 +51,8 @@ class MemoApp extends StatelessWidget {
           ),
         ),
       ),
-      home: firebaseInitialized 
-          ? const FirebaseAuthWrapper() 
+      home: firebaseInitialized
+          ? const FirebaseAuthWrapper()
           : const WebLoginWrapper(),
       debugShowCheckedModeBanner: false,
     );
@@ -68,8 +68,10 @@ class FirebaseAuthWrapper extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        print('FirebaseAuthWrapper - connectionState: ${snapshot.connectionState}, hasData: ${snapshot.hasData}, user: ${snapshot.data?.email}');
-        
+        print(
+          'FirebaseAuthWrapper - connectionState: ${snapshot.connectionState}, hasData: ${snapshot.hasData}, user: ${snapshot.data?.email}',
+        );
+
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Scaffold(
             body: Center(child: CircularProgressIndicator()),

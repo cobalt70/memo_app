@@ -5,9 +5,9 @@ import "../services/memo_service.dart";
 
 class MemoEditScreen extends StatefulWidget {
   final Memo? memo; // null for new memo, not null for editing
-  
+
   const MemoEditScreen({super.key, this.memo});
-  
+
   @override
   State<MemoEditScreen> createState() => _MemoEditScreenState();
 }
@@ -18,7 +18,7 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
   final _contentController = TextEditingController();
   final _memoService = MemoService();
   bool _isLoading = false;
-  
+
   @override
   void initState() {
     super.initState();
@@ -30,21 +30,21 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
       }
     });
   }
-  
+
   @override
   void dispose() {
     _titleController.dispose();
     _contentController.dispose();
     super.dispose();
   }
-  
+
   Future<void> _saveMemo() async {
     if (!_formKey.currentState!.validate()) return;
-    
+
     setState(() {
       _isLoading = true;
     });
-    
+
     try {
       final now = DateTime.now();
       final memo = Memo(
@@ -54,17 +54,17 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
         createdAt: widget.memo?.createdAt ?? now,
         updatedAt: now,
       );
-      
+
       await _memoService.saveMemo(memo);
-      
+
       if (mounted) {
         Navigator.pop(context, memo);
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("메모 저장 중 오류가 발생했습니다: $e")),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("메모 저장 중 오류가 발생했습니다: $e")));
       }
     } finally {
       if (mounted) {
@@ -74,11 +74,11 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
       }
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final isEditing = widget.memo != null;
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text(isEditing ? "메모 수정" : "새 메모"),
@@ -155,7 +155,7 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
       ),
     );
   }
-  
+
   Future<void> _showDeleteDialog() async {
     final result = await showDialog<bool>(
       context: context,
@@ -175,30 +175,30 @@ class _MemoEditScreenState extends State<MemoEditScreen> {
         ],
       ),
     );
-    
+
     if (result == true) {
       await _deleteMemo();
     }
   }
-  
+
   Future<void> _deleteMemo() async {
     if (widget.memo == null) return;
-    
+
     setState(() {
       _isLoading = true;
     });
-    
+
     try {
       await _memoService.deleteMemo(widget.memo!.id);
-      
+
       if (mounted) {
         Navigator.pop(context, "deleted");
       }
     } catch (e) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("메모 삭제 중 오류가 발생했습니다: $e")),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("메모 삭제 중 오류가 발생했습니다: $e")));
       }
     } finally {
       if (mounted) {

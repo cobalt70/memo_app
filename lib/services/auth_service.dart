@@ -19,22 +19,22 @@ class AuthService {
         final GoogleAuthProvider googleProvider = GoogleAuthProvider();
         googleProvider.addScope('email');
         googleProvider.addScope('profile');
-        
+
         // 웹용 Google 로그인
         final result = await _auth.signInWithPopup(googleProvider);
         print('웹 Google 로그인 성공: ${result.user?.email}');
         return result;
       } else {
         // 모바일용 Google 로그인
-        final GoogleSignInAccount? googleUser = await GoogleSignIn.instance.authenticate();
+        final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
+            .authenticate();
 
         if (googleUser == null) {
           return null; // 사용자가 로그인을 취소한 경우
         }
 
         // Google 인증 정보 가져오기
-        final GoogleSignInAuthentication googleAuth =
-            googleUser.authentication;
+        final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
         // Firebase 인증 정보 생성 (accessToken은 더 이상 사용할 수 없음)
         final credential = GoogleAuthProvider.credential(
