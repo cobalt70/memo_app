@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="memo_app">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Google Sign-In Client ID 1:876197887143:web:d407821b68ff3b3e3e2f82-->
+   <!-- 876197887143-q21ofum7r7s5f3dpi50o0vkoqu3pov76.apps.googleusercontent.com -->
+  <meta name="google-signin-client_id" content="876197887143-q21ofum7r7s5f3dpi50o0vkoqu3pov76.apps.googleusercontent.com">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>memo_app</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <script src="flutter_bootstrap.js" async></script>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getAuth } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyDmg2uAPeYnwQlgRjF67xkc4-TAJRStfL0",
+      authDomain: "memoapp-85d8f.firebaseapp.com",
+      projectId: "memoapp-85d8f",
+      storageBucket: "memoapp-85d8f.firebasestorage.app",
+      messagingSenderId: "876197887143",
+      appId: "1:876197887143:web:d407821b68ff3b3e3e2f82"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    // Initialize Firebase Auth
+    const auth = getAuth(app);
+    
+    // Make auth available globally for Flutter
+    window.firebaseAuth = auth;
+  </script>
+</body>
+</html>
